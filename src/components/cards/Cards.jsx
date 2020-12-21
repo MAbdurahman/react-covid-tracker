@@ -1,9 +1,39 @@
 import React from 'react';
+import { Typography, Grid } from '@material-ui/core';
+import CardComponent from './card/CardComponent';
+import styles from './Cards.module.css';
 
-export default function Cards() {
+
+export default function Cards({ data: { confirmed, recovered, deaths, lastUpdate } }) {
+   if (!confirmed) {
+      return 'Loading...';
+   }
    return (
-      <div>
-         <h1>Cards</h1>
+      <div className={styles.container}>
+         <Typography gutterBottom variant="h4" component="h2">Global</Typography>
+         <Grid container spacing={3} justify='center'>
+            <CardComponent
+               className={styles.infected}
+               cardTitle="Infected"
+               value={confirmed.value}
+               lastUpdate={lastUpdate}
+               cardSubtitle="Number of active cases from COVID-19."
+            />
+            <CardComponent
+               className={styles.recovered}
+               cardTitle="Recovered"
+               value={recovered.value}
+               lastUpdate={lastUpdate}
+               cardSubtitle="Number of recoveries from COVID-19."
+            />
+            <CardComponent
+               className={styles.deaths}
+               cardTitle="Deaths"
+               value={deaths.value}
+               lastUpdate={lastUpdate}
+               cardSubtitle="Number of deaths caused by COVID-19."
+            />
+         </Grid>
       </div>
    );
 };
